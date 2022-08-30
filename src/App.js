@@ -57,7 +57,7 @@ const App = () => {
             <Route exact path="/signup" element={<RegisterScreen />} />
             <Route exact path="/login" element={<LoginScreen />} />
             <Route exact path="/book-room/:id" element={<BookRoom />} />
-            <Route exact path="/events" element={<Events />} />
+            <Route exact path="/events/:id" element={<Events />} />
             <Route exact path="/events-list" element={<EventsList />} />
           </Routes>
         </Container>

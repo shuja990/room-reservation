@@ -6,7 +6,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 import { db } from "../App";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 const BookRoom = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -41,7 +41,9 @@ const BookRoom = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     setLoading(true);
-    addDoc(collection(db, "events"), {
+    let id = userInfo.email + Date.now();
+    setDoc(doc(db, "events", id), {
+      id: id,
       title: name,
       date,
       startTime,

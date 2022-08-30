@@ -16,7 +16,7 @@ const Product = ({ product }) => {
         type="submit"
         className="mt-2"
         variant="info "
-        onClick={() => navigate(`/events`)}
+        onClick={() => navigate(`/events/${product.room}`)}
       >
         View Reservations
       </Button>

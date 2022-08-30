@@ -13,7 +13,6 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../App";
-import { async } from "@firebase/util";
 
 const Users = () => {
   const navigate = useNavigate();
