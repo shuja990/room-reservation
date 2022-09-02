@@ -1,37 +1,48 @@
-import React, { useState } from "react";
+import { collection, getDocs, query } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { db } from "../App";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 import Product from "../components/Product";
 const Rooms = () => {
-  const [products, setProducts] = useState([
-    {
-      id: 443343,
-      name: "Conference Room #1",
-      room:1,
-      image:
-        "https://www.pngkey.com/png/detail/470-4703342_generic-placeholder-image-conference-room-free-icon.png",
-    },
-    {
-      id: 443343,
-      name: "Conference Room #2",
-      room:2,
-      image:
-        "https://www.pngkey.com/png/detail/470-4703342_generic-placeholder-image-conference-room-free-icon.png",
-    },
-    {
-      id: 443343,
-      name: "Conference Room #3",
-      room:3,
-      image:
-        "https://www.pngkey.com/png/detail/470-4703342_generic-placeholder-image-conference-room-free-icon.png",
-    },
-  ]);
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    listEvents();
+  },[]);
+  const listEvents = async () => {
+    try {
+      setLoading(true);
+      let data = [];
+      const q = query(collection(db, "rooms"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        data.push(doc.data());
+      });
+      console.log(data);
+      setRooms(data);
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
   return (
     <Row>
-      {products.map((product) => (
-        <Col key={product._id} sm={12} md={6} lg={4} xl={4}>
-          <Product product={product} />
-        </Col>
-      ))}
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <>
+          {rooms.map((product) => (
+            <Col key={product._id} sm={12} md={6} lg={4} xl={4}>
+              <Product product={product} />
+            </Col>
+          ))}
+        </>
+      )}
     </Row>
   );
 };

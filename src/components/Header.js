@@ -32,11 +32,19 @@ const Header = () => {
                   <LinkContainer to="/events">
                     <Nav.Link>Events</Nav.Link>
                   </LinkContainer>
-                  {/* {userInfo.isAdmin && (
-                    <LinkContainer to="/users">
-                      <Nav.Link>Users</Nav.Link>
-                    </LinkContainer>
-                  )} */}
+                  {userInfo.isAdmin && (
+                    <>
+                      <LinkContainer to="/admin/events">
+                        <Nav.Link>Events Admin</Nav.Link>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/block-dates">
+                        <Nav.Link>Block Dates</Nav.Link>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/add-room">
+                        <Nav.Link>Add Room</Nav.Link>
+                      </LinkContainer>
+                    </>
+                  )}
                   <NavDropdown title={userInfo.name} id="username">
                     <NavDropdown.Item onClick={logoutHandler}>
                       Logout

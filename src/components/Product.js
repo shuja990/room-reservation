@@ -16,7 +16,7 @@ const Product = ({ product }) => {
         type="submit"
         className="mt-2"
         variant="info "
-        onClick={() => navigate(`/events/${product.room}`)}
+        onClick={() => navigate(`/events/${product.number}`)}
       >
         View Reservations
       </Button>
@@ -24,7 +24,7 @@ const Product = ({ product }) => {
         type="submit"
         className="mt-2"
         variant="dark "
-        onClick={() => navigate(`/book-room/${product.room}`)}
+        onClick={() => navigate(`/book-room/${product.number}`)}
       >
         Book Now
       </Button>

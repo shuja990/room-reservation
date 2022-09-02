@@ -10,16 +10,14 @@ import { getAuth } from "firebase/auth";
 import RegisterScreen from "./pages/RegisterScreen";
 import LoginScreen from "./pages/LoginScreen";
 import BookRoom from "./pages/BookRoom";
-import PoolList from "./pages/PoolsList";
-import OfferList from "./pages/EventsList";
-import OrderListScreen from "./pages/PoolOrders";
-import OrderScreen from "./pages/PoolOrder";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "./actions/userActions";
-import Users from "./pages/Users";
 import Rooms from "./pages/Rooms";
 import Events from "./pages/Events";
+import Admin from "./pages/Admin";
 import EventsList from "./pages/EventsList";
+import AdminForm from "./pages/AdminForm";
+import AddRoom from "./pages/AddRoom";
 const firebaseConfig = {
   apiKey: "AIzaSyATpmp5ux3Qw6fY1txwlJdqcCgfbHCkP3o",
   authDomain: "room-reservation-961d0.firebaseapp.com",
@@ -59,6 +57,9 @@ const App = () => {
             <Route exact path="/book-room/:id" element={<BookRoom />} />
             <Route exact path="/events/:id" element={<Events />} />
             <Route exact path="/events-list" element={<EventsList />} />
+            <Route exact path="/admin/events" element={<Admin />} />
+            <Route exact path="/admin/block-dates" element={<AdminForm />} />
+            <Route exact path="/admin/add-room" element={<AddRoom />} />
           </Routes>
         </Container>
       </main>
