@@ -81,7 +81,8 @@ const BookRoom = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     setLoading(true);
-    if (blocked.findIndex((e) => e === date)) {
+    console.log(blocked)
+    if (blocked.includes(date)) {
       setLoading(false);
       return alert("This date has been blocked");
     }
@@ -108,6 +109,22 @@ const BookRoom = () => {
         return alert(
           "This time slot is already booked, please change your end time"
         );
+      } else if (
+        moment(events[i].startTime, "HH:mm").isBetween(
+          moment(mStartTime, "HH:mm"),
+          moment(mEndTime, "HH:mm")
+        )
+      ) {
+        setLoading(false);
+        return alert("This time slot is overlapping with another timeslot");
+      } else if (
+        moment(events[i].endTime, "HH:mm").isBetween(
+          moment(mStartTime, "HH:mm"),
+          moment(mEndTime, "HH:mm")
+        )
+      ) {
+        setLoading(false);
+        return alert("This time slot is overlapping with another timeslot");
       } else {
         continue;
       }

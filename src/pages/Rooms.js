@@ -21,7 +21,6 @@ const Rooms = () => {
       querySnapshot.forEach((doc) => {
         data.push(doc.data());
       });
-      console.log(data);
       setRooms(data);
       setLoading(false);
     } catch (error) {
