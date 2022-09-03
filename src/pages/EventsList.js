@@ -4,11 +4,21 @@ import { Table, Button, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { db } from "../App";
 import Loader from "../components/Loader";
-
+import emailjs from "@emailjs/browser";
 const EventsList = ({ events, title }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const [loading, setLoading] = useState(false);
+  const sendEmail = (e) => {
+    emailjs.send("service_ipguh7d", "template_m5qo43m1", e , "INBhCaabMmHG27i_D").then(
+      (result) => {
+        console.log(result,"DSsdsds");
+      },
+      (error) => {
+        console.log(error,"sddsds");
+      }
+    );
+  };
   const acceptRequest = (event) => {
     setLoading(true);
     const eventRef = doc(db, "events", event.id);
@@ -17,11 +27,16 @@ const EventsList = ({ events, title }) => {
     })
       .then(() => {
         setLoading(false);
+        sendEmail({
+          to_email: event.email,
+          message: `Room no ${event.room} has been reserved for you on ${event.date} Start time: ${event.startTime} and End time: ${event.endTime}`,
+        });
         alert("Request Accepted");
         window.location.reload();
       })
       .catch((e) => {
         setLoading(false);
+        console.log(e)
         alert(e.message);
       });
   };
